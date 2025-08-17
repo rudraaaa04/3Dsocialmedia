@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Icons Alive</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(270deg, #ff7eb3, #65d6ce, #8a82ff, #ffcc70);
+      background-size: 800% 800%;
+      animation: gradientBG 20s ease infinite;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Glassmorphism container */
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 40px;
+      display: flex;
+      gap: 25px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    ul li {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+    }
+
+    ul li:hover {
+      transform: rotateY(20deg) rotateX(10deg) scale(1.1);
+    }
+
+    ul li a {
+      color: #fff;
+      font-size: 32px;
+      text-decoration: none;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+      position: relative;
+      z-index: 2;
+      transition: 0.3s;
+    }
+
+    ul li a:before, ul li a:after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: 20px;
+      z-index: -1;
+    }
+
+    /* Facebook */
+    ul li[data-app="facebook"] a { background: #3b5998; }
+    ul li[data-app="facebook"]:hover a { box-shadow: 0 0 25px #3b5998; }
+
+    /* Twitter */
+    ul li[data-app="twitter"] a { background: #00aced; }
+    ul li[data-app="twitter"]:hover a { box-shadow: 0 0 25px #00aced; }
+
+    /* GitHub */
+    ul li[data-app="github"] a { background: #333; }
+    ul li[data-app="github"]:hover a { box-shadow: 0 0 25px #333; }
+
+    /* Instagram */
+    ul li[data-app="instagram"] a { background: #e4405f; }
+    ul li[data-app="instagram"]:hover a { box-shadow: 0 0 25px #e4405f; }
+
+    /* Tooltip */
+    .tooltip {
+      position: absolute;
+      bottom: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    ul li:hover .tooltip {
+      opacity: 1;
+      transform: translateY(-15px);
+    }
+
+    /* Cursor particles */
+    .particle {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fly 1s linear forwards;
+    }
+
+    @keyframes fly {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.2) translateY(-20px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <ul>
+      <li data-app="facebook">
+        <span class="tooltip">Facebook</span>
+        <a href="https://facebook.com" target="_blank"><i class="fa fa-facebook"></i></a>
+      </li>
+      <li data-app="twitter">
+        <span class="tooltip">Twitter</span>
+        <a href="https://twitter.com" target="_blank"><i class="fa fa-twitter"></i></a>
+      </li>
+      <li data-app="github">
+        <span class="tooltip">GitHub</span>
+        <a href="https://github.com" target="_blank"><i class="fa fa-github"></i></a>
+      </li>
+      <li data-app="instagram">
+        <span class="tooltip">Instagram</span>
+        <a href="https://instagram.com" target="_blank"><i class="fa fa-instagram"></i></a>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    // Background color change on hover & click
+    const appColors = {
+      facebook: "#3b5998",
+      twitter: "#00aced",
+      github: "#333",
+      instagram: "#e4405f"
+    };
+
+    document.querySelectorAll("ul li").forEach(li => {
+      li.addEventListener("mouseenter", () => {
+        document.body.style.background = appColors[li.dataset.app];
+      });
+      li.addEventListener("mouseleave", () => {
+        document.body.style.background = "";
+        document.body.style.animation = "gradientBG 20s ease infinite";
+      });
+      li.addEventListener("click", () => {
+        document.body.style.background = appColors[li.dataset.app];
+      });
+    });
+
+    // Cursor particle trail
+    document.addEventListener("mousemove", (e) => {
+      const particle = document.createElement("div");
+      particle.className = "particle";
+      document.body.appendChild(particle);
+      particle.style.left = `${e.pageX - 4}px`;
+      particle.style.top = `${e.pageY - 4}px`;
+      setTimeout(() => { particle.remove(); }, 1000);
+    });
+  </script>
+</body>
+</html>

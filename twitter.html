@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twitter Page</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #1DA1F2, #0d95e8, #a4d9f9, #f7f7f7);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      overflow: hidden;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .card {
+      background: rgba(0,0,0,0.6);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+    h1 { font-size: 3rem; margin-bottom: 20px; }
+    a { text-decoration: none; color: white; background: #1DA1F2; padding: 12px 25px; border-radius: 8px; transition: 0.3s; font-weight: bold; }
+    a:hover { background: #0d95e8; }
+    .particle { position: absolute; background: rgba(255,255,255,0.6); border-radius: 50%; pointer-events: none; animation: floatParticle linear infinite; }
+    @keyframes floatParticle { from {transform: translateY(100vh);opacity: 1;} to {transform: translateY(-10vh);opacity: 0;} }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Welcome to Twitter Page</h1>
+    <a href="index.html">⬅ Back to Home</a>
+  </div>
+  <script>
+    for (let i = 0; i < 30; i++) {
+      let particle = document.createElement("div");
+      particle.className = "particle";
+      document.body.appendChild(particle);
+      let size = Math.random() * 5 + 2;
+      particle.style.width = size + "px";
+      particle.style.height = size + "px";
+      particle.style.left = Math.random() * window.innerWidth + "px";
+      particle.style.animationDuration = (Math.random() * 10 + 5) + "s";
+    }
+  </script>
+</body>
+</html>
